@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un regalo para ti ❤</title>
+<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Dancing+Script:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0708; --red:#c1121f; --red2:#ff3b3b; --gold:#e9c46a; --txt:#f5ecec; --muted:#bfa8a8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:radial-gradient(ellipse at top,#2a0a0e 0%,var(--bg) 60%);
+    color:var(--txt);font-family:'Inter',sans-serif;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+  }
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;
+    opacity:0;pointer-events:none;transition:opacity .9s ease, transform .9s ease;transform:scale(.96)}
+  .scene.show{opacity:1;pointer-events:auto;transform:scale(1)}
+
+  /* Sobre */
+  .envelope{width:240px;height:160px;position:relative;cursor:pointer;animation:float 3s ease-in-out infinite}
+  .envelope .body{position:absolute;inset:0;background:linear-gradient(145deg,#8d0f18,#5a0810);border-radius:8px;box-shadow:0 20px 50px rgba(193,18,31,.45)}
+  .envelope .flap{position:absolute;top:0;left:0;width:0;height:0;border-left:120px solid transparent;border-right:120px solid transparent;border-top:95px solid #a3121d;transform-origin:top;transition:transform .6s;z-index:2}
+  .envelope.open .flap{transform:rotateX(180deg)}
+  .seal{position:absolute;top:70px;left:50%;transform:translateX(-50%);font-size:38px;z-index:3;transition:opacity .3s}
+  .envelope.open .seal{opacity:0}
+  .hint{margin-top:34px;color:var(--muted);font-size:15px;letter-spacing:.5px;animation:pulse 1.6s infinite}
+
+  h1{font-family:'Metal Mania',cursive;font-weight:400;color:var(--red2);text-shadow:0 0 18px rgba(255,59,59,.6);line-height:1.15}
+  .big{font-size:clamp(34px,9vw,64px)}
+  .mid{font-size:clamp(26px,7vw,44px)}
+  p.line{font-size:clamp(18px,5vw,24px);line-height:1.5;max-width:560px}
+  .script{font-family:'Dancing Script',cursive;font-size:clamp(30px,8vw,52px);color:var(--gold)}
+
+  /* Boleta */
+  .ticket{margin:22px 0;width:min(340px,90vw);background:linear-gradient(135deg,#1a1012,#2b0d12);border:2px solid var(--gold);border-radius:14px;
+    position:relative;padding:22px 20px;box-shadow:0 0 40px rgba(233,196,106,.25);transform:rotate(-2deg)}
+  .ticket::before,.ticket::after{content:"";position:absolute;top:50%;width:26px;height:26px;background:var(--bg);border-radius:50%;transform:translateY(-50%)}
+  .ticket::before{left:-14px;border-right:2px solid var(--gold)}
+  .ticket::after{right:-14px;border-left:2px solid var(--gold)}
+  .ticket .band{font-family:'Metal Mania',cursive;font-size:40px;color:var(--red2);letter-spacing:2px}
+  .ticket .row{display:flex;justify-content:space-between;margin-top:14px;font-size:13px;color:var(--muted);border-top:1px dashed var(--gold);padding-top:12px}
+  .ticket .row b{display:block;color:var(--txt);font-size:15px}
+  .admit{font-size:13px;letter-spacing:3px;color:var(--gold);margin-top:4px}
+
+  .btns{display:flex;gap:16px;margin-top:26px;justify-content:center;flex-wrap:wrap;position:relative;min-height:60px;width:100%}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:18px;border:none;border-radius:40px;padding:14px 34px;cursor:pointer;transition:transform .2s}
+  .yes{background:var(--red);color:#fff;box-shadow:0 0 25px rgba(193,18,31,.6)}
+  .yes:active{transform:scale(.95)}
+  .no{background:#2a2224;color:var(--muted);position:relative}
+  .next{background:transparent;border:1px solid var(--muted);color:var(--muted);font-size:15px;padding:10px 26px;margin-top:30px}
+
+  .heart{position:fixed;bottom:-40px;font-size:22px;pointer-events:none;animation:rise linear forwards}
+  @keyframes rise{to{transform:translateY(-115vh) rotate(360deg);opacity:0}}
+  @keyframes float{50%{transform:translateY(-10px)}}
+  @keyframes pulse{50%{opacity:.4}}
+  .fade{opacity:0;animation:fadeIn 1s forwards}
+  @keyframes fadeIn{to{opacity:1}}
+</style>
+</head>
+<body>
+
+<!-- 1: sobre -->
+<section class="scene show" id="s1">
+  <div class="envelope" id="env">
+    <div class="body"></div><div class="flap"></div><div class="seal">❤️</div>
+  </div>
+  <div class="hint">Toca el sobre 💌</div>
+</section>
+
+<!-- 2: pregunta -->
+<section class="scene" id="s2">
+  <p class="line">Mi amor…</p>
+  <h1 class="mid" style="margin-top:16px">¿Sabes cuál es tu regalo de<br>1 año y 6 meses?</h1>
+  <button class="next" onclick="go(3)">No… ¿cuál? 👀</button>
+</section>
+
+<!-- 3: revelación -->
+<section class="scene" id="s3">
+  <p class="line">Pues…</p>
+  <div class="ticket">
+    <div class="admit">ADMIT TWO · VIP DEL AMOR</div>
+    <div class="band">IRON MAIDEN</div>
+    <div class="row">
+      <div>Asistentes<b>Tú & yo</b></div>
+      <div>Ocasión<b>1 año y 6 meses</b></div>
+    </div>
+  </div>
+  <p class="line">¡La boleta de <b>Iron Maiden</b>! 🤘</p>
+  <button class="next" onclick="go(4)">Sigue →</button>
+</section>
+
+<!-- 4: invitación -->
+<section class="scene" id="s4">
+  <p class="line">Te invito a que me acompañes:</p>
+  <h1 class="mid" style="margin:18px 0">Una noche,<br>los dos<br>y la Dama de Hierro 🔥</h1>
+  <p class="line" style="color:var(--gold)">¿Quieres acompañarme?</p>
+  <div class="btns">
+    <button class="yes" onclick="yes()">¡Sí! 🤘</button>
+    <button class="no" id="no">No</button>
+  </div>
+</section>
+
+<!-- 5: final -->
+<section class="scene" id="s5">
+  <div class="script">Feliz cumple de</div>
+  <h1 class="big">1 año y 6 meses</h1>
+  <p class="line" style="margin-top:24px">Te amo mucho ❤️<br>Gracias por todo.</p>
+  <p class="line" style="margin-top:18px;color:var(--muted);font-size:16px">Nos vemos en primera fila 🤘</p>
+</section>
+
+<script>
+  let cur = 1, heartTimer = null;
+  function go(n){
+    document.getElementById('s'+cur).classList.remove('show');
+    cur = n;
+    setTimeout(()=>document.getElementById('s'+n).classList.add('show'), 350);
+    if(n===3) burst(25);
+  }
+  document.getElementById('env').addEventListener('click', function(){
+    this.classList.add('open');
+    burst(15);
+    setTimeout(()=>go(2), 900);
+  });
+
+  // El botón "No" se escapa 😄
+  const no = document.getElementById('no');
+  const nos = ['¿Segura?','Piénsalo 🥺','No se puede','Error 404','Solo hay "Sí"'];
+  let i = 0;
+  function dodge(e){
+    e.preventDefault();
+    const x = (Math.random()-.5)*220, y = (Math.random()-.5)*140;
+    no.style.transform = `translate(${x}px,${y}px)`;
+    no.textContent = nos[i++ % nos.length];
+  }
+  no.addEventListener('mouseenter', dodge);
+  no.addEventListener('touchstart', dodge, {passive:false});
+  no.addEventListener('click', dodge);
+
+  function yes(){
+    go(5);
+    burst(40);
+    heartTimer = setInterval(()=>burst(3), 700);
+  }
+
+  function burst(n){
+    const icons = ['❤️','💖','🤘','🔥','💘'];
+    for(let k=0;k<n;k++){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = icons[Math.floor(Math.random()*icons.length)];
+      h.style.left = Math.random()*100+'vw';
+      h.style.fontSize = (16+Math.random()*22)+'px';
+      h.style.animationDuration = (3+Math.random()*3)+'s';
+      h.style.animationDelay = (Math.random()*.8)+'s';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 7000);
+    }
+  }
+</script>
+</body>
+</html>
